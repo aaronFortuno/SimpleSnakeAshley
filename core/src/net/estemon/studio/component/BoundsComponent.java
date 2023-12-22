@@ -10,7 +10,6 @@ public class BoundsComponent implements Component, Pool.Poolable {
     public final Rectangle rectangle = new Rectangle(0, 0, 1, 1);
 
     // public methods
-
     @Override
     public void reset() {
         rectangle.setPosition(0, 0);
