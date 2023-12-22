@@ -2,6 +2,7 @@ package net.estemon.studio.entity;
 
 import net.estemon.studio.config.GameConfig;
 
+@Deprecated
 public class Coin extends EntityBase {
 
     // attributes

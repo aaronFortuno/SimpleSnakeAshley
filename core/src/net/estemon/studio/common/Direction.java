@@ -1,4 +1,4 @@
-package net.estemon.studio.entity;
+package net.estemon.studio.common;
 
 public enum Direction {
     UP,

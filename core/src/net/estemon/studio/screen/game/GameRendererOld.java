@@ -26,7 +26,8 @@ import net.estemon.studio.utils.GdxUtils;
 import net.estemon.studio.utils.ViewportUtils;
 import net.estemon.studio.utils.debug.DebugCameraController;
 
-public class GameRenderer implements Disposable {
+@Deprecated
+public class GameRendererOld implements Disposable {
 
     // constants
     public static final float PADDING = 20f;
@@ -34,7 +35,7 @@ public class GameRenderer implements Disposable {
     // attributes
     private final SpriteBatch batch;
     private final AssetManager assetManager;
-    private final GameController controller;
+    private final GameControllerOld controller;
 
     private OrthographicCamera camera;
     private Viewport viewport;
@@ -52,7 +53,7 @@ public class GameRenderer implements Disposable {
     private DebugCameraController debugCameraController;
 
     // constructors
-    public GameRenderer(SpriteBatch batch, AssetManager assetManager, GameController controller) {
+    public GameRendererOld(SpriteBatch batch, AssetManager assetManager, GameControllerOld controller) {
         this.batch = batch;
         this.assetManager = assetManager;
         this.controller = controller;

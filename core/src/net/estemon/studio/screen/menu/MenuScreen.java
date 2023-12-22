@@ -21,7 +21,7 @@ import net.estemon.studio.assets.AssetDescriptors;
 import net.estemon.studio.assets.ButtonStyleNames;
 import net.estemon.studio.assets.RegionNames;
 import net.estemon.studio.config.GameConfig;
-import net.estemon.studio.screen.game.GameScreen;
+import net.estemon.studio.screen.game.GameScreenOld;
 import net.estemon.studio.utils.GdxUtils;
 
 public class MenuScreen extends ScreenAdapter {
@@ -114,7 +114,7 @@ public class MenuScreen extends ScreenAdapter {
     }
 
     private void play() {
-        game.setScreen(new GameScreen(game));
+        game.setScreen(new GameScreenOld(game));
     }
 
     private void quit() {

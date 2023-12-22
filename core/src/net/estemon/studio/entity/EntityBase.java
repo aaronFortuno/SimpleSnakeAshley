@@ -2,6 +2,7 @@ package net.estemon.studio.entity;
 
 import com.badlogic.gdx.math.Rectangle;
 
+@Deprecated
 public abstract class EntityBase {
 
     // attributes

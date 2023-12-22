@@ -2,6 +2,7 @@ package net.estemon.studio.entity;
 
 import net.estemon.studio.config.GameConfig;
 
+@Deprecated
 public class BodyPart extends EntityBase {
 
     private boolean justAdded = true;

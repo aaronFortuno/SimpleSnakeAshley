@@ -2,8 +2,10 @@ package net.estemon.studio.entity;
 
 import com.badlogic.gdx.utils.Array;
 
+import net.estemon.studio.common.Direction;
 import net.estemon.studio.config.GameConfig;
 
+@Deprecated
 public class Snake {
 
     // attributes

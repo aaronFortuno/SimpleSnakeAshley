@@ -13,14 +13,15 @@ import net.estemon.studio.common.GameManager;
 import net.estemon.studio.config.GameConfig;
 import net.estemon.studio.entity.BodyPart;
 import net.estemon.studio.entity.Coin;
-import net.estemon.studio.entity.Direction;
+import net.estemon.studio.common.Direction;
 import net.estemon.studio.entity.Snake;
 import net.estemon.studio.entity.SnakeHead;
 
-public class GameController {
+@Deprecated
+public class GameControllerOld {
 
     // constants
-    private static final Logger LOG = new Logger(GameController.class.getName(), Logger.DEBUG);
+    private static final Logger LOG = new Logger(GameControllerOld.class.getName(), Logger.DEBUG);
 
     // attributes
     private final CollisionListener listener;
@@ -30,7 +31,7 @@ public class GameController {
     private Coin coin;
 
     // constructors
-    public GameController(CollisionListener listener) {
+    public GameControllerOld(CollisionListener listener) {
         this.listener = listener;
 
         snake = new Snake();
