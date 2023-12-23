@@ -110,8 +110,9 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new RenderSystem(batch, viewport));
         engine.addSystem(new HudRenderSystem(batch, hudViewport, font));
 
-        snake = factory.createSnake();
+        factory.createBackground();
         factory.createCoin();
+        snake = factory.createSnake();
 
         GameManager.INSTANCE.reset();
     }

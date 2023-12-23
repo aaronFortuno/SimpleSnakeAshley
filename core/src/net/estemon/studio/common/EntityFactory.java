@@ -46,6 +46,34 @@ public class EntityFactory {
     }
 
     // public methods
+    public void createBackground() {
+        // position
+        PositionComponent position = engine.createComponent(PositionComponent.class);
+
+        // dimension
+        DimensionComponent dimension = engine.createComponent(DimensionComponent.class);
+        dimension.width = GameConfig.WORLD_WIDTH;
+        dimension.height = GameConfig.WORLD_HEIGHT;
+
+        // texture
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        texture.region = gamePlayAtlas.findRegion(RegionNames.BACKGROUND);
+
+        // z order
+        ZOrderComponent zOrder = engine.createComponent(ZOrderComponent.class);
+        zOrder.z = BACKGROUND_Z_ORDER;
+
+        // entity
+        Entity entity = engine.createEntity();
+        entity.add(position);
+        entity.add(dimension);
+        entity.add(texture);
+        entity.add(zOrder);
+
+        // add to engine
+        engine.addEntity(entity);
+    }
+
     public Entity createSnake() {
         // snake
         SnakeComponent snake = engine.createComponent(SnakeComponent.class);
