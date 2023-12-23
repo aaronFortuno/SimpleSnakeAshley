@@ -1,6 +1,9 @@
 package net.estemon.studio.screen.game;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,9 +17,13 @@ import net.estemon.studio.common.EntityFactory;
 import net.estemon.studio.common.GameManager;
 import net.estemon.studio.config.GameConfig;
 import net.estemon.studio.screen.menu.MenuScreen;
+import net.estemon.studio.system.BoundsSystem;
+import net.estemon.studio.system.DirectionSystem;
+import net.estemon.studio.system.SnakeMovementSystem;
 import net.estemon.studio.system.debug.DebugCameraSystem;
 import net.estemon.studio.system.debug.DebugRenderSystem;
 import net.estemon.studio.system.debug.GridRenderSystem;
+import net.estemon.studio.system.passive.SnakeSystem;
 import net.estemon.studio.utils.GdxUtils;
 
 public class GameScreen extends ScreenAdapter {
@@ -33,6 +40,8 @@ public class GameScreen extends ScreenAdapter {
     private ShapeRenderer renderer;
     private PooledEngine engine;
     private EntityFactory factory;
+
+    private Entity snake;
 
     // constructors
     public GameScreen(SimpleSnakeGame game) {
@@ -56,13 +65,24 @@ public class GameScreen extends ScreenAdapter {
                 camera)
         );
         engine.addSystem(new DebugRenderSystem(viewport, renderer));
+        engine.addSystem(new SnakeSystem());
+        engine.addSystem(new DirectionSystem());
+        engine.addSystem(new SnakeMovementSystem());
+        engine.addSystem(new BoundsSystem());
 
-        factory.createSnakeHead();
+        snake = factory.createSnake();
     }
 
     @Override
     public void render(float delta) {
         GdxUtils.clearScreen();
+
+        // debug
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+            log.debug("before remove count: " + engine.getEntities().size());
+            engine.removeEntity(snake);
+            log.debug("after remove count: " + engine.getEntities().size());
+        }
 
         engine.update(delta);
 

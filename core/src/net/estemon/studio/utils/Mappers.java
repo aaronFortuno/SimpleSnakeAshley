@@ -4,7 +4,10 @@ import com.badlogic.ashley.core.ComponentMapper;
 
 import net.estemon.studio.component.BoundsComponent;
 import net.estemon.studio.component.DimensionComponent;
+import net.estemon.studio.component.DirectionComponent;
+import net.estemon.studio.component.MovementComponent;
 import net.estemon.studio.component.PositionComponent;
+import net.estemon.studio.component.SnakeComponent;
 
 public final class Mappers {
 
@@ -16,4 +19,10 @@ public final class Mappers {
             ComponentMapper.getFor(PositionComponent.class);
     public static final ComponentMapper<DimensionComponent> DIMENSION =
             ComponentMapper.getFor(DimensionComponent.class);
+    public static final ComponentMapper<SnakeComponent> SNAKE =
+            ComponentMapper.getFor(SnakeComponent.class);
+    public static final ComponentMapper<MovementComponent> MOVEMENT =
+            ComponentMapper.getFor(MovementComponent.class);
+    public static final ComponentMapper<DirectionComponent> DIRECTION =
+            ComponentMapper.getFor(DirectionComponent.class);
 }
