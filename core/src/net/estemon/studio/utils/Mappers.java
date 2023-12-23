@@ -1,5 +1,6 @@
 package net.estemon.studio.utils;
 
+import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 
 import net.estemon.studio.component.BodyPartComponent;
@@ -11,6 +12,7 @@ import net.estemon.studio.component.MovementComponent;
 import net.estemon.studio.component.PositionComponent;
 import net.estemon.studio.component.SnakeComponent;
 import net.estemon.studio.component.TextureComponent;
+import net.estemon.studio.component.ZOrderComponent;
 
 public final class Mappers {
 
@@ -34,4 +36,7 @@ public final class Mappers {
             ComponentMapper.getFor(BodyPartComponent.class);
     public static final ComponentMapper<TextureComponent> TEXTURE =
             ComponentMapper.getFor(TextureComponent.class);
+
+    public static final ComponentMapper<ZOrderComponent> Z_ORDER =
+            ComponentMapper.getFor(ZOrderComponent.class);
 }

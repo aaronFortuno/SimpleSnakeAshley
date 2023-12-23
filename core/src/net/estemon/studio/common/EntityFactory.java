@@ -18,9 +18,16 @@ import net.estemon.studio.component.PositionComponent;
 import net.estemon.studio.component.SnakeComponent;
 import net.estemon.studio.component.TextureComponent;
 import net.estemon.studio.component.WorldWrapComponent;
+import net.estemon.studio.component.ZOrderComponent;
 import net.estemon.studio.config.GameConfig;
 
 public class EntityFactory {
+
+    // constants
+    private static final int BACKGROUND_Z_ORDER = 0;
+    private static final int COIN_Z_ORDER = 1;
+    private static final int BODY_PART_Z_ORDER = 2;
+    private static final int HEAD_Z_ORDER = 3;
 
     // attributes
     private final PooledEngine engine;
@@ -83,6 +90,10 @@ public class EntityFactory {
         TextureComponent texture = engine.createComponent(TextureComponent.class);
         texture.region = gamePlayAtlas.findRegion(RegionNames.HEAD);
 
+        // z order
+        ZOrderComponent zOrder = engine.createComponent(ZOrderComponent.class);
+        zOrder.z = HEAD_Z_ORDER;
+
         // entity
         Entity entity = engine.createEntity();
         entity.add(position);
@@ -93,6 +104,7 @@ public class EntityFactory {
         entity.add(player);
         entity.add(worldWrap);
         entity.add(texture);
+        entity.add(zOrder);
 
         // add to engine
         engine.addEntity(entity);
@@ -121,6 +133,10 @@ public class EntityFactory {
         TextureComponent texture = engine.createComponent(TextureComponent.class);
         texture.region = gamePlayAtlas.findRegion(RegionNames.COIN);
 
+        // z order
+        ZOrderComponent zOrder = engine.createComponent(ZOrderComponent.class);
+        zOrder.z = COIN_Z_ORDER;
+
         // entity
         Entity entity = engine.createEntity();
         entity.add(position);
@@ -128,6 +144,7 @@ public class EntityFactory {
         entity.add(bounds);
         entity.add(coin);
         entity.add(texture);
+        entity.add(zOrder);
 
         // add to engine
         engine.addEntity(entity);
@@ -156,6 +173,10 @@ public class EntityFactory {
         TextureComponent texture = engine.createComponent(TextureComponent.class);
         texture.region = gamePlayAtlas.findRegion(RegionNames.BODY);
 
+        // z order
+        ZOrderComponent zOrder = engine.createComponent(ZOrderComponent.class);
+        zOrder.z = BODY_PART_Z_ORDER;
+
         // entity
         Entity entity = engine.createEntity();
         entity.add(position);
@@ -163,6 +184,7 @@ public class EntityFactory {
         entity.add(bounds);
         entity.add(bodyPart);
         entity.add(texture);
+        entity.add(zOrder);
 
         // add to engine
         engine.addEntity(entity);
