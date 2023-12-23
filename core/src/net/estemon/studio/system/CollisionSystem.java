@@ -8,7 +8,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Intersector;
 
 import net.estemon.studio.collision.CollisionListener;
-import net.estemon.studio.common.EntityFactory;
+import net.estemon.studio.system.passive.EntityFactorySystem;
 import net.estemon.studio.common.GameManager;
 import net.estemon.studio.component.BodyPartComponent;
 import net.estemon.studio.component.BoundsComponent;
@@ -25,14 +25,18 @@ public class CollisionSystem extends IntervalSystem {
     private static final Family COIN_FAMILY = Family.all(CoinComponent.class).get();
 
     // attributes
-    private final EntityFactory factory;
     private final CollisionListener listener;
+    private EntityFactorySystem factory;
 
     // constructors
-    public CollisionSystem(EntityFactory factory, CollisionListener listener) {
+    public CollisionSystem(CollisionListener listener) {
         super(GameConfig.MOVE_TIME);
-        this.factory = factory;
         this.listener = listener;
+    }
+
+    @Override
+    public void addedToEngine(Engine engine) {
+        factory = engine.getSystem(EntityFactorySystem.class);
     }
 
     @Override

@@ -1,6 +1,8 @@
-package net.estemon.studio.common;
+package net.estemon.studio.system.passive;
 
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -21,7 +23,7 @@ import net.estemon.studio.component.WorldWrapComponent;
 import net.estemon.studio.component.ZOrderComponent;
 import net.estemon.studio.config.GameConfig;
 
-public class EntityFactory {
+public class EntityFactorySystem extends EntitySystem {
 
     // constants
     private static final int BACKGROUND_Z_ORDER = 0;
@@ -30,13 +32,13 @@ public class EntityFactory {
     private static final int HEAD_Z_ORDER = 3;
 
     // attributes
-    private final PooledEngine engine;
     private final AssetManager assetManager;
+
+    private PooledEngine engine;
     private TextureAtlas gamePlayAtlas;
 
     // constructors
-    public EntityFactory(PooledEngine engine, AssetManager assetManager) {
-        this.engine = engine;
+    public EntityFactorySystem(AssetManager assetManager) {
         this.assetManager = assetManager;
         init();
     }
@@ -46,6 +48,22 @@ public class EntityFactory {
     }
 
     // public methods
+    @Override
+    public void update(float deltaTime) {
+        // no processing
+    }
+
+    @Override
+    public boolean checkProcessing() {
+        // returning false since this is "passive" system
+        return false;
+    }
+
+    @Override
+    public void addedToEngine(Engine engine) {
+        this.engine = (PooledEngine) engine;
+    }
+
     public void createBackground() {
         // position
         PositionComponent position = engine.createComponent(PositionComponent.class);

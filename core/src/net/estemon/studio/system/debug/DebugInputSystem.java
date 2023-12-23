@@ -19,7 +19,6 @@ public class DebugInputSystem extends EntitySystem {
     }
 
     // public methods
-
     @Override
     public void addedToEngine(Engine engine) {
         gridRenderSystem = engine.getSystem(GridRenderSystem.class);
