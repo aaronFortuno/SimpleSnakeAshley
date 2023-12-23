@@ -32,6 +32,7 @@ import net.estemon.studio.system.RenderSystem;
 import net.estemon.studio.system.SnakeMovementSystem;
 import net.estemon.studio.system.WorldWrapSystem;
 import net.estemon.studio.system.debug.DebugCameraSystem;
+import net.estemon.studio.system.debug.DebugInputSystem;
 import net.estemon.studio.system.debug.DebugRenderSystem;
 import net.estemon.studio.system.debug.GridRenderSystem;
 import net.estemon.studio.system.passive.SnakeSystem;
@@ -94,6 +95,7 @@ public class GameScreen extends ScreenAdapter {
                 camera)
         );
         engine.addSystem(new DebugRenderSystem(viewport, renderer));
+        engine.addSystem(new DebugInputSystem());
         engine.addSystem(new SnakeSystem());
         engine.addSystem(new DirectionSystem());
         engine.addSystem(new SnakeMovementSystem());
