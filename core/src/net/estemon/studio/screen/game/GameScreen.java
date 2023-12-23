@@ -32,6 +32,7 @@ import net.estemon.studio.system.debug.DebugRenderSystem;
 import net.estemon.studio.system.debug.GridRenderSystem;
 import net.estemon.studio.system.passive.SnakeSystem;
 import net.estemon.studio.system.passive.SoundSystem;
+import net.estemon.studio.system.passive.StartUpSystem;
 import net.estemon.studio.utils.GdxUtils;
 
 public class GameScreen extends ScreenAdapter {
@@ -46,7 +47,6 @@ public class GameScreen extends ScreenAdapter {
     private Viewport hudViewport;
     private ShapeRenderer renderer;
     private PooledEngine engine;
-    private EntityFactorySystem factory;
     private BitmapFont font;
 
     // constructors
@@ -66,10 +66,9 @@ public class GameScreen extends ScreenAdapter {
         engine = new PooledEngine();
         font = assetManager.get(AssetDescriptors.UI_FONT);
 
-        factory = new EntityFactorySystem(assetManager);
-
-        engine.addSystem(factory);
+        engine.addSystem(new EntityFactorySystem(assetManager));
         engine.addSystem(new SoundSystem(assetManager));
+
         engine.addSystem(new GridRenderSystem(viewport, renderer));
         engine.addSystem(new DebugCameraSystem(
                 GameConfig.WORLD_CENTER_X,
@@ -78,6 +77,7 @@ public class GameScreen extends ScreenAdapter {
         );
         engine.addSystem(new DebugRenderSystem(viewport, renderer));
         engine.addSystem(new DebugInputSystem());
+
         engine.addSystem(new SnakeSystem());
         engine.addSystem(new DirectionSystem());
         engine.addSystem(new SnakeMovementSystem());
@@ -88,10 +88,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new CollisionSystem());
         engine.addSystem(new RenderSystem(batch, viewport));
         engine.addSystem(new HudRenderSystem(batch, hudViewport, font));
-
-        factory.createBackground();
-        factory.createCoin();
-        factory.createSnake();
+        engine.addSystem(new StartUpSystem());
 
         GameManager.INSTANCE.reset();
     }
