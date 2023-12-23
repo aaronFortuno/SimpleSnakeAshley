@@ -7,6 +7,7 @@ import com.badlogic.ashley.systems.IntervalSystem;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Intersector;
 
+import net.estemon.studio.collision.CollisionListener;
 import net.estemon.studio.common.EntityFactory;
 import net.estemon.studio.common.GameManager;
 import net.estemon.studio.component.BodyPartComponent;
@@ -25,11 +26,13 @@ public class CollisionSystem extends IntervalSystem {
 
     // attributes
     private final EntityFactory factory;
+    private final CollisionListener listener;
 
     // constructors
-    public CollisionSystem(EntityFactory factory) {
+    public CollisionSystem(EntityFactory factory, CollisionListener listener) {
         super(GameConfig.MOVE_TIME);
         this.factory = factory;
+        this.listener = listener;
     }
 
     @Override
@@ -52,6 +55,10 @@ public class CollisionSystem extends IntervalSystem {
                     PositionComponent position = Mappers.POSITION.get(snake.head);
                     Entity bodyPart = factory.createBodyPart(position.x, position.y);
                     snake.bodyParts.insert(0, bodyPart);
+                    listener.hitCoin();
+
+                    // update score
+                    GameManager.INSTANCE.incrementScore(GameConfig.COIN_SCORE);
                 }
             }
         }
@@ -69,6 +76,8 @@ public class CollisionSystem extends IntervalSystem {
                 }
 
                 if (overlaps(snake.head, bodyPartEntity)) {
+                    listener.lose();
+                    GameManager.INSTANCE.updateHighScore();
                     GameManager.INSTANCE.setGameOver();
                 }
 
