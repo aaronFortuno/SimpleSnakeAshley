@@ -80,6 +80,8 @@ public class GameScreen extends ScreenAdapter {
 
         snake = factory.createSnake();
         factory.createCoin();
+
+        GameManager.INSTANCE.reset();
     }
 
     @Override

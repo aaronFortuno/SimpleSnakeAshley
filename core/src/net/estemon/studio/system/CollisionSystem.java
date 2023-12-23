@@ -8,6 +8,8 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Intersector;
 
 import net.estemon.studio.common.EntityFactory;
+import net.estemon.studio.common.GameManager;
+import net.estemon.studio.component.BodyPartComponent;
 import net.estemon.studio.component.BoundsComponent;
 import net.estemon.studio.component.CoinComponent;
 import net.estemon.studio.component.PositionComponent;
@@ -51,6 +53,26 @@ public class CollisionSystem extends IntervalSystem {
                     Entity bodyPart = factory.createBodyPart(position.x, position.y);
                     snake.bodyParts.insert(0, bodyPart);
                 }
+            }
+        }
+
+        // head <-> body parts
+        for (Entity snakeEntity : snakes) {
+            SnakeComponent snake = Mappers.SNAKE.get(snakeEntity);
+
+            for (Entity bodyPartEntity : snake.bodyParts) {
+                BodyPartComponent bodyPart = Mappers.BODY_PART.get(bodyPartEntity);
+
+                if (bodyPart.justAdded) {
+                    bodyPart.justAdded = false;
+                    continue;
+                }
+
+                if (overlaps(snake.head, bodyPartEntity)) {
+                    GameManager.INSTANCE.setGameOver();
+                }
+
+
             }
         }
     }
