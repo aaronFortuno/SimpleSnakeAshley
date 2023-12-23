@@ -74,7 +74,7 @@ public class EntityFactory {
         engine.addEntity(entity);
     }
 
-    public Entity createSnake() {
+    public void createSnake() {
         // snake
         SnakeComponent snake = engine.createComponent(SnakeComponent.class);
         snake.head = createSnakeHead();
@@ -84,8 +84,6 @@ public class EntityFactory {
         snakeEntity.add(snake);
 
         engine.addEntity(snakeEntity);
-
-        return snakeEntity;
     }
 
     public Entity createSnakeHead() {

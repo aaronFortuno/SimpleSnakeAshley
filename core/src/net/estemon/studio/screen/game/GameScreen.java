@@ -39,9 +39,6 @@ import net.estemon.studio.utils.GdxUtils;
 
 public class GameScreen extends ScreenAdapter {
 
-    // constants
-    private static final Logger log = new Logger(GameScreen.class.getSimpleName(), 3);
-
     // attributes
     private final SimpleSnakeGame game;
     private final AssetManager assetManager;
@@ -57,8 +54,6 @@ public class GameScreen extends ScreenAdapter {
     private Sound coinSound;
     private Sound loseSound;
     private CollisionListener listener;
-
-    private Entity snake;
 
     // constructors
     public GameScreen(SimpleSnakeGame game) {
@@ -112,7 +107,7 @@ public class GameScreen extends ScreenAdapter {
 
         factory.createBackground();
         factory.createCoin();
-        snake = factory.createSnake();
+        factory.createSnake();
 
         GameManager.INSTANCE.reset();
     }
@@ -120,13 +115,6 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         GdxUtils.clearScreen();
-
-        // debug
-        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
-            log.debug("before remove count: " + engine.getEntities().size());
-            engine.removeEntity(snake);
-            log.debug("after remove count: " + engine.getEntities().size());
-        }
 
         engine.update(delta);
 
