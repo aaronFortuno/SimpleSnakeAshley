@@ -10,6 +10,7 @@ import net.estemon.studio.component.MovementComponent;
 import net.estemon.studio.component.PlayerComponent;
 import net.estemon.studio.component.PositionComponent;
 import net.estemon.studio.component.SnakeComponent;
+import net.estemon.studio.component.WorldWrapComponent;
 import net.estemon.studio.config.GameConfig;
 
 public class EntityFactory {
@@ -60,6 +61,9 @@ public class EntityFactory {
         // player
         PlayerComponent player = engine.createComponent(PlayerComponent.class);
 
+        // world wrap
+        WorldWrapComponent worldWrap = engine.createComponent(WorldWrapComponent.class);
+
         // entity
         Entity entity = engine.createEntity();
         entity.add(position);
@@ -68,6 +72,7 @@ public class EntityFactory {
         entity.add(direction);
         entity.add(movement);
         entity.add(player);
+        entity.add(worldWrap);
 
         // add to engine
         engine.addEntity(entity);
