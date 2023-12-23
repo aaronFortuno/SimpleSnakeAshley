@@ -22,6 +22,7 @@ import net.estemon.studio.system.CoinSystem;
 import net.estemon.studio.system.CollisionSystem;
 import net.estemon.studio.system.DirectionSystem;
 import net.estemon.studio.system.PlayerControlSystem;
+import net.estemon.studio.system.RenderSystem;
 import net.estemon.studio.system.SnakeMovementSystem;
 import net.estemon.studio.system.WorldWrapSystem;
 import net.estemon.studio.system.debug.DebugCameraSystem;
@@ -60,7 +61,7 @@ public class GameScreen extends ScreenAdapter {
         viewport = new FitViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT, camera);
         renderer = new ShapeRenderer();
         engine = new PooledEngine();
-        factory = new EntityFactory(engine);
+        factory = new EntityFactory(engine, assetManager);
 
         engine.addSystem(new GridRenderSystem(viewport, renderer));
         engine.addSystem(new DebugCameraSystem(
@@ -77,6 +78,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new WorldWrapSystem());
         engine.addSystem(new CoinSystem());
         engine.addSystem(new CollisionSystem(factory));
+        engine.addSystem(new RenderSystem(game.getBatch(), viewport));
 
         snake = factory.createSnake();
         factory.createCoin();

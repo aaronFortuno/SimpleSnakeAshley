@@ -10,6 +10,7 @@ import net.estemon.studio.component.DirectionComponent;
 import net.estemon.studio.component.MovementComponent;
 import net.estemon.studio.component.PositionComponent;
 import net.estemon.studio.component.SnakeComponent;
+import net.estemon.studio.component.TextureComponent;
 
 public final class Mappers {
 
@@ -31,4 +32,6 @@ public final class Mappers {
             ComponentMapper.getFor(CoinComponent.class);
     public static final ComponentMapper<BodyPartComponent> BODY_PART =
             ComponentMapper.getFor(BodyPartComponent.class);
+    public static final ComponentMapper<TextureComponent> TEXTURE =
+            ComponentMapper.getFor(TextureComponent.class);
 }

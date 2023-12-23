@@ -2,7 +2,11 @@ package net.estemon.studio.common;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
+import net.estemon.studio.assets.AssetDescriptors;
+import net.estemon.studio.assets.RegionNames;
 import net.estemon.studio.component.BodyPartComponent;
 import net.estemon.studio.component.BoundsComponent;
 import net.estemon.studio.component.CoinComponent;
@@ -12,6 +16,7 @@ import net.estemon.studio.component.MovementComponent;
 import net.estemon.studio.component.PlayerComponent;
 import net.estemon.studio.component.PositionComponent;
 import net.estemon.studio.component.SnakeComponent;
+import net.estemon.studio.component.TextureComponent;
 import net.estemon.studio.component.WorldWrapComponent;
 import net.estemon.studio.config.GameConfig;
 
@@ -19,10 +24,18 @@ public class EntityFactory {
 
     // attributes
     private final PooledEngine engine;
+    private final AssetManager assetManager;
+    private TextureAtlas gamePlayAtlas;
 
     // constructors
-    public EntityFactory(PooledEngine engine) {
+    public EntityFactory(PooledEngine engine, AssetManager assetManager) {
         this.engine = engine;
+        this.assetManager = assetManager;
+        init();
+    }
+
+    private void init() {
+        gamePlayAtlas = assetManager.get(AssetDescriptors.GAME_PLAY);
     }
 
     // public methods
@@ -66,6 +79,10 @@ public class EntityFactory {
         // world wrap
         WorldWrapComponent worldWrap = engine.createComponent(WorldWrapComponent.class);
 
+        // texture
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        texture.region = gamePlayAtlas.findRegion(RegionNames.HEAD);
+
         // entity
         Entity entity = engine.createEntity();
         entity.add(position);
@@ -75,6 +92,7 @@ public class EntityFactory {
         entity.add(movement);
         entity.add(player);
         entity.add(worldWrap);
+        entity.add(texture);
 
         // add to engine
         engine.addEntity(entity);
@@ -99,12 +117,17 @@ public class EntityFactory {
         // coin
         CoinComponent coin = engine.createComponent(CoinComponent.class);
 
+        // texture
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        texture.region = gamePlayAtlas.findRegion(RegionNames.COIN);
+
         // entity
         Entity entity = engine.createEntity();
         entity.add(position);
         entity.add(dimension);
         entity.add(bounds);
         entity.add(coin);
+        entity.add(texture);
 
         // add to engine
         engine.addEntity(entity);
@@ -129,12 +152,17 @@ public class EntityFactory {
         // body part
         BodyPartComponent bodyPart = engine.createComponent(BodyPartComponent.class);
 
+        // texture
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        texture.region = gamePlayAtlas.findRegion(RegionNames.BODY);
+
         // entity
         Entity entity = engine.createEntity();
         entity.add(position);
         entity.add(dimension);
         entity.add(bounds);
         entity.add(bodyPart);
+        entity.add(texture);
 
         // add to engine
         engine.addEntity(entity);
