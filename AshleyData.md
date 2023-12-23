@@ -9,23 +9,26 @@ SnakeMovementSystem     Logic to update position based on movement(speed)
 BoundsSystem            Logic to update bounds based on position and dimension
 PlayerControlSystem     Player control logic / input handling logic
 WorldWrapSystem         Logic to keep entity inside world bounds
+CoinSystem              Logic to reposition and make it available again (spawn)
 -------------------------------------------------------------------------------
 
-SYSTEM/COMP         | Position | Dimension | Bounds | Snake | Direction | Movement | Player | WorldWrap |
------------------------------------------------------------------------------------------------------------
-GridRenderSystem    |          |           |        |       |           |          |        |           |
-DebugCameraSystem   |          |           |        |       |           |          |        |           |
-DebugRenderSystem   |          |           |    X   |       |           |          |        |           |
-SnakeSystem         |          |           |        |   X   |           |          |        |           |
-DirectionSystem     |          |           |        |       |     X     |     X    |        |           |
-SnakeMovementSystem |    .     |           |        |   X   |           |     .    |        |           |
-BoundsSystem        |    X     |     X     |    X   |       |           |          |        |           |
-PlayerControlSystem |          |           |        |       |     X     |          |   X    |           |
-WorldWrapSystem     |    X     |           |        |       |           |          |        |     X     |
----------------------------------------------------------------------------------------------------------
+SYSTEM/COMP         | Position | Dimension | Bounds | Snake | Direction | Movement | Player | WorldWrap | Coin |
+----------------------------------------------------------------------------------------------------------------
+GridRenderSystem    |          |           |        |       |           |          |        |           |      |
+DebugCameraSystem   |          |           |        |       |           |          |        |           |      |
+DebugRenderSystem   |          |           |    X   |       |           |          |        |           |      |
+SnakeSystem         |          |           |        |   X   |           |          |        |           |      |
+DirectionSystem     |          |           |        |       |     X     |     X    |        |           |      |
+SnakeMovementSystem |    .     |           |        |   X   |           |     .    |        |           |      |
+BoundsSystem        |    X     |     X     |    X   |       |           |          |        |           |      |
+PlayerControlSystem |          |           |        |       |     X     |          |   X    |           |      |
+WorldWrapSystem     |    X     |           |        |       |           |          |        |     X     |      |
+CoinSystem          |    X     |           |        |       |           |          |        |           |   X  |
+----------------------------------------------------------------------------------------------------------------
 
-ENTITY/COMP         | Position | Dimension | Bounds | Snake | Direction | Movement | Player | WorldWrap |
------------------------------------------------------------------------------------------------------------
-SnakeHead           |    X     |     X     |    X   |       |           |          |   X    |     X     |
-Snake               |          |           |        |   X   |           |          |        |           |
----------------------------------------------------------------------------------------------------------
+ENTITY/COMP         | Position | Dimension | Bounds | Snake | Direction | Movement | Player | WorldWrap | Coin |
+----------------------------------------------------------------------------------------------------------------
+SnakeHead           |    X     |     X     |    X   |       |     X     |     X    |   X    |     X     |      |
+Snake               |          |           |        |   X   |           |          |        |           |      |
+Coin                |    X     |     X     |    X   |       |           |          |        |           |   X  |
+----------------------------------------------------------------------------------------------------------------

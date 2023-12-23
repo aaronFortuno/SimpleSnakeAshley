@@ -3,6 +3,7 @@ package net.estemon.studio.utils;
 import com.badlogic.ashley.core.ComponentMapper;
 
 import net.estemon.studio.component.BoundsComponent;
+import net.estemon.studio.component.CoinComponent;
 import net.estemon.studio.component.DimensionComponent;
 import net.estemon.studio.component.DirectionComponent;
 import net.estemon.studio.component.MovementComponent;
@@ -25,4 +26,6 @@ public final class Mappers {
             ComponentMapper.getFor(MovementComponent.class);
     public static final ComponentMapper<DirectionComponent> DIRECTION =
             ComponentMapper.getFor(DirectionComponent.class);
+    public static final ComponentMapper<CoinComponent> COIN =
+            ComponentMapper.getFor(CoinComponent.class);
 }
