@@ -24,8 +24,8 @@ public class CoinSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        PositionComponent position = Mappers.POSITION.get(entity);
         CoinComponent coin = Mappers.COIN.get(entity);
+        PositionComponent position = Mappers.POSITION.get(entity);
 
         if (coin.available) {
             return;

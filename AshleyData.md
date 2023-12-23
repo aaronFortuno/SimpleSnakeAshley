@@ -10,10 +10,11 @@ BoundsSystem            Logic to update bounds based on position and dimension
 PlayerControlSystem     Player control logic / input handling logic
 WorldWrapSystem         Logic to keep entity inside world bounds
 CoinSystem              Logic to reposition and make it available again (spawn)
+CollisionSystem         Collision detection logic
 -------------------------------------------------------------------------------
 
-SYSTEM/COMP         | Position | Dimension | Bounds | Snake | Direction | Movement | Player | WorldWrap | Coin |
-----------------------------------------------------------------------------------------------------------------
+SYSTEM/COMP         | Position | Dimension | Bounds | Snake | Direction | Movement | Player | WorldWrap | Coin | BodyPart |
+---------------------------------------------------------------------------------------------------------------------------
 GridRenderSystem    |          |           |        |       |           |          |        |           |      |
 DebugCameraSystem   |          |           |        |       |           |          |        |           |      |
 DebugRenderSystem   |          |           |    X   |       |           |          |        |           |      |
@@ -24,6 +25,7 @@ BoundsSystem        |    X     |     X     |    X   |       |           |       
 PlayerControlSystem |          |           |        |       |     X     |          |   X    |           |      |
 WorldWrapSystem     |    X     |           |        |       |           |          |        |     X     |      |
 CoinSystem          |    X     |           |        |       |           |          |        |           |   X  |
+CollisionSystem     |          |           |    X   |   X   |           |          |        |           |   X  |
 ----------------------------------------------------------------------------------------------------------------
 
 ENTITY/COMP         | Position | Dimension | Bounds | Snake | Direction | Movement | Player | WorldWrap | Coin |

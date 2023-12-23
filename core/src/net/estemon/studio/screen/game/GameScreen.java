@@ -19,6 +19,7 @@ import net.estemon.studio.config.GameConfig;
 import net.estemon.studio.screen.menu.MenuScreen;
 import net.estemon.studio.system.BoundsSystem;
 import net.estemon.studio.system.CoinSystem;
+import net.estemon.studio.system.CollisionSystem;
 import net.estemon.studio.system.DirectionSystem;
 import net.estemon.studio.system.PlayerControlSystem;
 import net.estemon.studio.system.SnakeMovementSystem;
@@ -75,6 +76,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new PlayerControlSystem());
         engine.addSystem(new WorldWrapSystem());
         engine.addSystem(new CoinSystem());
+        engine.addSystem(new CollisionSystem());
 
         snake = factory.createSnake();
         factory.createCoin();
