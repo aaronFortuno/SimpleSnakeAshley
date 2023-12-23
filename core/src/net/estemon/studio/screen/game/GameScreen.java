@@ -7,12 +7,15 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.estemon.studio.SimpleSnakeGame;
+import net.estemon.studio.assets.AssetDescriptors;
 import net.estemon.studio.common.EntityFactory;
 import net.estemon.studio.common.GameManager;
 import net.estemon.studio.config.GameConfig;
@@ -21,6 +24,7 @@ import net.estemon.studio.system.BoundsSystem;
 import net.estemon.studio.system.CoinSystem;
 import net.estemon.studio.system.CollisionSystem;
 import net.estemon.studio.system.DirectionSystem;
+import net.estemon.studio.system.HudRenderSystem;
 import net.estemon.studio.system.PlayerControlSystem;
 import net.estemon.studio.system.RenderSystem;
 import net.estemon.studio.system.SnakeMovementSystem;
@@ -39,12 +43,15 @@ public class GameScreen extends ScreenAdapter {
     // attributes
     private final SimpleSnakeGame game;
     private final AssetManager assetManager;
+    private final SpriteBatch batch;
 
     private OrthographicCamera camera;
     private Viewport viewport;
+    private Viewport hudViewport;
     private ShapeRenderer renderer;
     private PooledEngine engine;
     private EntityFactory factory;
+    private BitmapFont font;
 
     private Entity snake;
 
@@ -52,6 +59,7 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen(SimpleSnakeGame game) {
         this.game = game;
         assetManager = game.getAssetManager();
+        batch = game.getBatch();
     }
 
     // public methods
@@ -59,9 +67,11 @@ public class GameScreen extends ScreenAdapter {
     public void show() {
         camera = new OrthographicCamera();
         viewport = new FitViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT, camera);
+        hudViewport = new FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT);
         renderer = new ShapeRenderer();
         engine = new PooledEngine();
         factory = new EntityFactory(engine, assetManager);
+        font = assetManager.get(AssetDescriptors.UI_FONT);
 
         engine.addSystem(new GridRenderSystem(viewport, renderer));
         engine.addSystem(new DebugCameraSystem(
@@ -78,7 +88,8 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new WorldWrapSystem());
         engine.addSystem(new CoinSystem());
         engine.addSystem(new CollisionSystem(factory));
-        engine.addSystem(new RenderSystem(game.getBatch(), viewport));
+        engine.addSystem(new RenderSystem(batch, viewport));
+        engine.addSystem(new HudRenderSystem(batch, hudViewport, font));
 
         snake = factory.createSnake();
         factory.createCoin();
@@ -107,6 +118,7 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
+        hudViewport.update(width, height, true);
     }
 
     @Override
