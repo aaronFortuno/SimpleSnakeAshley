@@ -15,22 +15,23 @@ CollisionSystem         Collision detection logic
 
 SYSTEM/COMP         | Position | Dimension | Bounds | Snake | Direction | Movement | Player | WorldWrap | Coin | BodyPart |
 ---------------------------------------------------------------------------------------------------------------------------
-GridRenderSystem    |          |           |        |       |           |          |        |           |      |
-DebugCameraSystem   |          |           |        |       |           |          |        |           |      |
-DebugRenderSystem   |          |           |    X   |       |           |          |        |           |      |
-SnakeSystem         |          |           |        |   X   |           |          |        |           |      |
-DirectionSystem     |          |           |        |       |     X     |     X    |        |           |      |
-SnakeMovementSystem |    .     |           |        |   X   |           |     .    |        |           |      |
-BoundsSystem        |    X     |     X     |    X   |       |           |          |        |           |      |
-PlayerControlSystem |          |           |        |       |     X     |          |   X    |           |      |
-WorldWrapSystem     |    X     |           |        |       |           |          |        |     X     |      |
-CoinSystem          |    X     |           |        |       |           |          |        |           |   X  |
-CollisionSystem     |          |           |    X   |   X   |           |          |        |           |   X  |
-----------------------------------------------------------------------------------------------------------------
+GridRenderSystem    |          |           |        |       |           |          |        |           |      |          |
+DebugCameraSystem   |          |           |        |       |           |          |        |           |      |          |
+DebugRenderSystem   |          |           |    X   |       |           |          |        |           |      |          |
+SnakeSystem         |          |           |        |   X   |           |          |        |           |      |          |
+DirectionSystem     |          |           |        |       |     X     |     X    |        |           |      |          |
+SnakeMovementSystem |    .     |           |        |   X   |           |     .    |        |           |      |          |
+BoundsSystem        |    X     |     X     |    X   |       |           |          |        |           |      |          |
+PlayerControlSystem |          |           |        |       |     X     |          |   X    |           |      |          |
+WorldWrapSystem     |    X     |           |        |       |           |          |        |     X     |      |          |
+CoinSystem          |    X     |           |        |       |           |          |        |           |   X  |          |
+CollisionSystem     |          |           |    X   |   X   |           |          |        |           |   X  |     X    |
+---------------------------------------------------------------------------------------------------------------------------
 
-ENTITY/COMP         | Position | Dimension | Bounds | Snake | Direction | Movement | Player | WorldWrap | Coin |
-----------------------------------------------------------------------------------------------------------------
-SnakeHead           |    X     |     X     |    X   |       |     X     |     X    |   X    |     X     |      |
-Snake               |          |           |        |   X   |           |          |        |           |      |
-Coin                |    X     |     X     |    X   |       |           |          |        |           |   X  |
-----------------------------------------------------------------------------------------------------------------
+ENTITY/COMP         | Position | Dimension | Bounds | Snake | Direction | Movement | Player | WorldWrap | Coin | BodyPart |
+---------------------------------------------------------------------------------------------------------------------------
+SnakeHead           |    X     |     X     |    X   |       |     X     |     X    |   X    |     X     |      |          |
+Snake               |          |           |        |   X   |           |          |        |           |      |          |
+Coin                |    X     |     X     |    X   |       |           |          |        |           |   X  |          |
+SnakeBodyPart       |    X     |     X     |    X   |       |           |          |        |           |      |     X    |
+---------------------------------------------------------------------------------------------------------------------------

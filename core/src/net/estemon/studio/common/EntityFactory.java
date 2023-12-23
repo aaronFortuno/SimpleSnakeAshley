@@ -3,6 +3,7 @@ package net.estemon.studio.common;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 
+import net.estemon.studio.component.BodyPartComponent;
 import net.estemon.studio.component.BoundsComponent;
 import net.estemon.studio.component.CoinComponent;
 import net.estemon.studio.component.DimensionComponent;
@@ -107,5 +108,37 @@ public class EntityFactory {
 
         // add to engine
         engine.addEntity(entity);
+    }
+
+    public Entity createBodyPart(float x, float y) {
+        // position
+        PositionComponent position = engine.createComponent(PositionComponent.class);
+        position.x = x;
+        position.y = y;
+
+        // dimension
+        DimensionComponent dimension = engine.createComponent(DimensionComponent.class);
+        dimension.width = GameConfig.SNAKE_SIZE;
+        dimension.height = GameConfig.SNAKE_SIZE;
+
+        // bounds
+        BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
+        bounds.rectangle.setPosition(position.x, position.y);
+        bounds.rectangle.setSize(dimension.width, dimension.height);
+
+        // body part
+        BodyPartComponent bodyPart = engine.createComponent(BodyPartComponent.class);
+
+        // entity
+        Entity entity = engine.createEntity();
+        entity.add(position);
+        entity.add(dimension);
+        entity.add(bounds);
+        entity.add(bodyPart);
+
+        // add to engine
+        engine.addEntity(entity);
+
+        return entity;
     }
 }

@@ -7,8 +7,10 @@ import com.badlogic.ashley.systems.IntervalSystem;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Intersector;
 
+import net.estemon.studio.common.EntityFactory;
 import net.estemon.studio.component.BoundsComponent;
 import net.estemon.studio.component.CoinComponent;
+import net.estemon.studio.component.PositionComponent;
 import net.estemon.studio.component.SnakeComponent;
 import net.estemon.studio.config.GameConfig;
 import net.estemon.studio.utils.Mappers;
@@ -19,8 +21,13 @@ public class CollisionSystem extends IntervalSystem {
     private static final Family SNAKE_FAMILY = Family.all(SnakeComponent.class).get();
     private static final Family COIN_FAMILY = Family.all(CoinComponent.class).get();
 
-    public CollisionSystem() {
+    // attributes
+    private final EntityFactory factory;
+
+    // constructors
+    public CollisionSystem(EntityFactory factory) {
         super(GameConfig.MOVE_TIME);
+        this.factory = factory;
     }
 
     @Override
@@ -38,6 +45,11 @@ public class CollisionSystem extends IntervalSystem {
                 if (coin.available && overlaps(snake.head, coinEntity)) {
                     // mark coin as not available
                     coin.available = false;
+
+                    // get head position and add body part
+                    PositionComponent position = Mappers.POSITION.get(snake.head);
+                    Entity bodyPart = factory.createBodyPart(position.x, position.y);
+                    snake.bodyParts.insert(0, bodyPart);
                 }
             }
         }

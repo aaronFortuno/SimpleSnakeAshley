@@ -76,7 +76,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new PlayerControlSystem());
         engine.addSystem(new WorldWrapSystem());
         engine.addSystem(new CoinSystem());
-        engine.addSystem(new CollisionSystem());
+        engine.addSystem(new CollisionSystem(factory));
 
         snake = factory.createSnake();
         factory.createCoin();
