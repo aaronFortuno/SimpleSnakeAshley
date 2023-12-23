@@ -18,6 +18,10 @@ public class SnakeMovementSystem extends IntervalIteratingSystem {
             SnakeComponent.class
     ).get();
 
+    // attributes
+    private float beforeUpdateHeadX;
+    private float beforeUpdateHeadY;
+
     // constructors
     public SnakeMovementSystem() {
         super(FAMILY, GameConfig.MOVE_TIME);
@@ -28,6 +32,7 @@ public class SnakeMovementSystem extends IntervalIteratingSystem {
         SnakeComponent snake = Mappers.SNAKE.get(entity);
 
         moveHead(snake.head);
+        moveBodyParts(snake);
     }
 
     // private methods
@@ -35,7 +40,20 @@ public class SnakeMovementSystem extends IntervalIteratingSystem {
         MovementComponent movement = Mappers.MOVEMENT.get(head);
         PositionComponent position = Mappers.POSITION.get(head);
 
+        beforeUpdateHeadX = position.x;
+        beforeUpdateHeadY = position.y;
+
         position.x += movement.xSpeed;
         position.y += movement.ySpeed;
+    }
+
+    private void moveBodyParts(SnakeComponent snake) {
+        if (snake.hasBodyParts()) {
+            Entity tail = snake.bodyParts.removeIndex(0);
+            PositionComponent position = Mappers.POSITION.get(tail);
+            position.x = beforeUpdateHeadX;
+            position.y = beforeUpdateHeadY;
+            snake.bodyParts.add(tail);
+        }
     }
 }

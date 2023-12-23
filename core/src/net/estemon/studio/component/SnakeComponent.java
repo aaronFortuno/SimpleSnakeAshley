@@ -16,6 +16,9 @@ public class SnakeComponent implements Component, Pool.Poolable {
     public final Array<Entity> bodyParts = new Array<Entity>();
 
     // public methods
+    public boolean hasBodyParts() {
+        return bodyParts.size > 0;
+    }
 
     @Override
     public void reset() {
