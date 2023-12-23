@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.estemon.studio.SimpleSnakeGame;
 import net.estemon.studio.assets.AssetDescriptors;
-import net.estemon.studio.collision.CollisionListener;
 import net.estemon.studio.system.passive.EntityFactorySystem;
 import net.estemon.studio.common.GameManager;
 import net.estemon.studio.config.GameConfig;
@@ -32,6 +31,7 @@ import net.estemon.studio.system.debug.DebugInputSystem;
 import net.estemon.studio.system.debug.DebugRenderSystem;
 import net.estemon.studio.system.debug.GridRenderSystem;
 import net.estemon.studio.system.passive.SnakeSystem;
+import net.estemon.studio.system.passive.SoundSystem;
 import net.estemon.studio.utils.GdxUtils;
 
 public class GameScreen extends ScreenAdapter {
@@ -48,27 +48,12 @@ public class GameScreen extends ScreenAdapter {
     private PooledEngine engine;
     private EntityFactorySystem factory;
     private BitmapFont font;
-    private Sound coinSound;
-    private Sound loseSound;
-    private CollisionListener listener;
 
     // constructors
     public GameScreen(SimpleSnakeGame game) {
         this.game = game;
         assetManager = game.getAssetManager();
         batch = game.getBatch();
-
-        listener = new CollisionListener() {
-            @Override
-            public void hitCoin() {
-                coinSound.play();
-            }
-
-            @Override
-            public void lose() {
-                loseSound.play();
-            }
-        };
     }
 
     // public methods
@@ -80,12 +65,11 @@ public class GameScreen extends ScreenAdapter {
         renderer = new ShapeRenderer();
         engine = new PooledEngine();
         font = assetManager.get(AssetDescriptors.UI_FONT);
-        coinSound = assetManager.get(AssetDescriptors.COIN_SOUND);
-        loseSound = assetManager.get(AssetDescriptors.LOSE_SOUND);
 
         factory = new EntityFactorySystem(assetManager);
 
         engine.addSystem(factory);
+        engine.addSystem(new SoundSystem(assetManager));
         engine.addSystem(new GridRenderSystem(viewport, renderer));
         engine.addSystem(new DebugCameraSystem(
                 GameConfig.WORLD_CENTER_X,
@@ -101,7 +85,7 @@ public class GameScreen extends ScreenAdapter {
         engine.addSystem(new PlayerControlSystem());
         engine.addSystem(new WorldWrapSystem());
         engine.addSystem(new CoinSystem());
-        engine.addSystem(new CollisionSystem(listener));
+        engine.addSystem(new CollisionSystem());
         engine.addSystem(new RenderSystem(batch, viewport));
         engine.addSystem(new HudRenderSystem(batch, hudViewport, font));
 

@@ -7,7 +7,6 @@ import com.badlogic.ashley.systems.IntervalSystem;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Intersector;
 
-import net.estemon.studio.collision.CollisionListener;
 import net.estemon.studio.system.passive.EntityFactorySystem;
 import net.estemon.studio.common.GameManager;
 import net.estemon.studio.component.BodyPartComponent;
@@ -16,6 +15,7 @@ import net.estemon.studio.component.CoinComponent;
 import net.estemon.studio.component.PositionComponent;
 import net.estemon.studio.component.SnakeComponent;
 import net.estemon.studio.config.GameConfig;
+import net.estemon.studio.system.passive.SoundSystem;
 import net.estemon.studio.utils.Mappers;
 
 public class CollisionSystem extends IntervalSystem {
@@ -25,18 +25,18 @@ public class CollisionSystem extends IntervalSystem {
     private static final Family COIN_FAMILY = Family.all(CoinComponent.class).get();
 
     // attributes
-    private final CollisionListener listener;
     private EntityFactorySystem factory;
+    private SoundSystem soundSystem;
 
     // constructors
-    public CollisionSystem(CollisionListener listener) {
+    public CollisionSystem() {
         super(GameConfig.MOVE_TIME);
-        this.listener = listener;
     }
 
     @Override
     public void addedToEngine(Engine engine) {
         factory = engine.getSystem(EntityFactorySystem.class);
+        soundSystem = engine.getSystem(SoundSystem.class);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class CollisionSystem extends IntervalSystem {
                     PositionComponent position = Mappers.POSITION.get(snake.head);
                     Entity bodyPart = factory.createBodyPart(position.x, position.y);
                     snake.bodyParts.insert(0, bodyPart);
-                    listener.hitCoin();
+                    soundSystem.hitCoin();
 
                     // update score
                     GameManager.INSTANCE.incrementScore(GameConfig.COIN_SCORE);
@@ -80,7 +80,7 @@ public class CollisionSystem extends IntervalSystem {
                 }
 
                 if (overlaps(snake.head, bodyPartEntity)) {
-                    listener.lose();
+                    soundSystem.lose();
                     GameManager.INSTANCE.updateHighScore();
                     GameManager.INSTANCE.setGameOver();
                 }
